@@ -55,6 +55,20 @@ public class UserController {
         userService.changeUser(user);
         return "redirect:/list";
     }
+    @GetMapping(value = "/user")
+    public String getUserPage() {
+        return "user";
+    }
+
+    @GetMapping (value = "/admin")
+    public String getAdminPage(){
+        return "admin";
+    }
+
+    @GetMapping (value = "/index")
+    public String getLoginpage(){
+        return "index";
+    }
 
 
 }
