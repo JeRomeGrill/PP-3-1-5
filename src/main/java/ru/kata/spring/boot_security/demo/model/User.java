@@ -1,31 +1,56 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
-@Table
-public class User {
+@Table (name = "user")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
     private String firstName;
 
-    @Column(name = "last_name")
+
     private String lastName;
 
-    @Column(name = "email")
+    @Column (unique = true)
     private String email;
 
-    public User(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    @Column (length = 1000)
+    private String password;
+    @Transient
+    private String passwordConfirm;
+
+    public User(String email, String password, Set<Role> roles) {
         this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
+
+    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable (name = "user_roles",
+            joinColumns = @JoinColumn (name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set <Role> roles = new HashSet<>();
 
     public User() {
 
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -34,6 +59,48 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public String getFirstName() {
@@ -67,6 +134,22 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", roles=" + roles +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(passwordConfirm, user.passwordConfirm) && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, password, passwordConfirm, roles);
     }
 }
