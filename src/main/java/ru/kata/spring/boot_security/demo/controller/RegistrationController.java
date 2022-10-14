@@ -21,10 +21,6 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("user") User user, Model model) {
-//        if (user.getPassword().equals(user.getPasswordConfirm())){
-//            model.addAttribute("passwordError", "Пароли не совпадают");
-//            return "registration";
-//        }
 //        if (user.getEmail().equals(userService.findByEmail(user.getEmail()).getEmail())){
 //            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
 //            return "registration";

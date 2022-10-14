@@ -1,10 +1,36 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title></title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-<p><a href="/login">Log out</a></p>
+
+<h1 th:utext="${user.getUsername()}">My Info</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>E-mail</th>
+        <th>Password</th>
+        <th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td th:utext="${user.id}">UserId</td>
+    <td th:utext="${user.firstName}">Name</td>
+    <td th:utext="${user.lastName}">Surname</td>
+    <td th:utext="${user.email}">BirthYear</td>
+    <td th:utext="${user.password}">BirthYear</td>
+    <td th:utext="${user.rolesToString()}">BirthYear</td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<p><a href="/logout">Log out</a></p>
 </body>
 </html>

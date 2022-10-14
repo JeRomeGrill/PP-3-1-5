@@ -18,6 +18,8 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>E-mail</th>
+                <th>Password</th>
+                <th>Roles</th>
             </tr>
             </thead>
             <tbody>
@@ -26,6 +28,8 @@
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
                 <td th:text="${user.email}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.roles}"></td>
                 <td><a th:href="@{update/{id}(id=${user.id})}">Edit</a></td>
                 <td><a th:href="@{delete/{id}(id=${user.id})}">Delete</a></td>
             </tr>
@@ -34,6 +38,7 @@
 </div>
 
 <p><a href="/create">Create user</a></p>
+    <p><a href="/logout">Log out</a></p>
 </div>
 </body>
 </html>

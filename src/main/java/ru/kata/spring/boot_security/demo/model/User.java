@@ -25,12 +25,6 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
-    public User(String email, String password, Set<Role> roles) {
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable (name = "user_roles",
             joinColumns = @JoinColumn (name = "user_id"),
@@ -138,6 +132,14 @@ public class User implements UserDetails {
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+    public String rolesToString(){
+        Role [] roles = getRoles().toArray(new Role[getRoles().size()]);
+        StringBuilder rolesList = new StringBuilder();
+        for (int i = 0; i < roles.length; i++) {
+            rolesList.append(roles[0].toString());
+        }
+        return String.valueOf(rolesList);
     }
 
     @Override
