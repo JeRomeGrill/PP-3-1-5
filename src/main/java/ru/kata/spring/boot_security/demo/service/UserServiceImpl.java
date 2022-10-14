@@ -19,6 +19,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDao userDao;
+
     @Autowired
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void add(User user) {
-            userDao.add(user);
+        userDao.add(user);
     }
 
     @Transactional(readOnly = true)
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User findById(Long id) {
         return userDao.findById(id);
     }
+
     @Transactional(readOnly = true)
     @Override
     public User findByEmail(String email) {
@@ -64,10 +66,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByEmail(username);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found",username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),user.getPassword(),user.getAuthorities());
+                user.getUsername(), user.getPassword(), user.getAuthorities());
 
-}
+    }
 }

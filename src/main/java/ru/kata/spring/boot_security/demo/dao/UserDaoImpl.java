@@ -52,11 +52,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByEmail(String email) {
-        try{
+        try {
             return (User) entityManager.createQuery(
                     "from User u where u.email = :email").setParameter("email", email).getSingleResult();
         } catch (NoResultException e) {
-            throw new NoResultException(String.format("User '%s' not found",email));
+            throw new NoResultException(String.format("User '%s' not found", email));
         }
     }
 

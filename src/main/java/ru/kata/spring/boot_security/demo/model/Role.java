@@ -6,14 +6,14 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table (name = "role")
+@Table(name = "role")
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
     private String name;
     @ManyToMany
-    @JoinTable (name = "user_roles",
-            joinColumns = @JoinColumn (name = "role_id"),
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users;
 
@@ -65,9 +65,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return id == 1 ? "USER" : "ADMIN";
     }
 }

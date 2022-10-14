@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table (name = "user")
+@Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,19 +17,19 @@ public class User implements UserDetails {
 
     private String lastName;
 
-    @Column (unique = true)
+    @Column(unique = true)
     private String email;
 
-    @Column (length = 1000)
+    @Column(length = 1000)
     private String password;
     @Transient
     private String passwordConfirm;
 
-    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable (name = "user_roles",
-            joinColumns = @JoinColumn (name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set <Role> roles = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
 
@@ -133,8 +133,9 @@ public class User implements UserDetails {
                 ", roles=" + roles +
                 '}';
     }
-    public String rolesToString(){
-        Role [] roles = getRoles().toArray(new Role[getRoles().size()]);
+
+    public String rolesToString() {
+        Role[] roles = getRoles().toArray(new Role[getRoles().size()]);
         StringBuilder rolesList = new StringBuilder();
         for (int i = 0; i < roles.length; i++) {
             rolesList.append(roles[0].toString());

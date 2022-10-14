@@ -11,14 +11,15 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class RoleDaoImpl implements RoleDao{
+public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     EntityManager entityManager;
+
     @Override
     public Set<Role> findRoleById(List<Long> ids) {
         HashSet<Role> set = new HashSet<>();
-        for (Long id:ids) {
-            set.add((Role)entityManager.createQuery("from Role r where r.id = :id").setParameter("id",id).getSingleResult());
+        for (Long id : ids) {
+            set.add((Role) entityManager.createQuery("from Role r where r.id = :id").setParameter("id", id).getSingleResult());
         }
         return set;
     }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     RoleDao roleDao;
 
     @Autowired
