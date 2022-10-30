@@ -5,7 +5,7 @@
     <title>Create user</title>
 </head>
 <body>
-<form action="#" th:action="@{/admin/create}" th:object="${user}" method="post">
+<form action="#" th:action="@{/admin/create}" th:object="${newuser}" method="post">
     <label for="firstName">First name</label>
     <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
     <label for="lastName">Last name</label>

@@ -28,16 +28,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/registration", "/login", "index").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin().successHandler(successUserHandler)
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .permitAll()
                 .and()
-                .logout()
-                .logoutSuccessUrl("/index")
-                .permitAll();
+                .logout().logoutSuccessUrl("/login")
+                .permitAll()
+        ;
     }
 
     @Autowired

@@ -138,7 +138,7 @@ public class User implements UserDetails {
         Role[] roles = getRoles().toArray(new Role[getRoles().size()]);
         StringBuilder rolesList = new StringBuilder();
         for (int i = 0; i < roles.length; i++) {
-            rolesList.append(roles[0].toString());
+            rolesList.append(roles[i].toString() + " ");
         }
         return String.valueOf(rolesList);
     }

@@ -23,28 +23,30 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin/create")
+    @GetMapping("/admin#new-user")
     public String createUserForm(User user) {
-        return "create";
+        return "admin#new-user";
     }
 
-    @PostMapping("/admin/create")
-    public String createUser(@ModelAttribute("user") User user) {
+    @PostMapping("/admin")
+    public String createUser(@ModelAttribute("currentUser") User user) {
         userService.add(user);
-        return "redirect:/admin/list";
+        return "redirect:/admin";
     }
 
-    @GetMapping(value = "/admin/list")
-    public String printUsers(ModelMap model) {
+    @GetMapping(value = "/admin")
+    public String printUsers(ModelMap model, Principal pr, User user) {
         List<User> users = userService.listUsers();
         model.addAttribute("users", users);
-        return "list";
+        model.addAttribute("currentUser", userService.findByEmail(pr.getName()));
+        model.addAttribute("newuser", new User());
+        return "admin";
     }
 
     @GetMapping("/admin/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.removeUser(id);
-        return "redirect:/admin/list";
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/update/{id}")
@@ -58,7 +60,7 @@ public class UserController {
     public String updateUser(User user, @RequestParam("role") List<Long> roles) {
         user.setRoles(roleService.findRoleById(roles));
         userService.changeUser(user);
-        return "redirect:/admin/list";
+        return "redirect:/admin";
     }
 
     @GetMapping(value = "/user")
@@ -68,14 +70,14 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/admin")
-    public String getAdminPage() {
-        return "admin";
-    }
+//    @GetMapping(value = "/admin")
+//    public String getAdminPage() {
+//        return "admin";
+//    }
 
-    @GetMapping(value = "/index")
-    public String getLoginpage() {
-        return "index";
+    @GetMapping(value = "/")
+    public String getLoginPage() {
+        return "login";
     }
 
 
