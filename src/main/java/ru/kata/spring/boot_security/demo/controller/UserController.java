@@ -2,6 +2,8 @@ package ru.kata.spring.boot_security.demo.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
@@ -23,19 +26,16 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin#new-user")
-    public String createUserForm(User user) {
-        return "admin#new-user";
-    }
 
     @PostMapping("/admin")
-    public String createUser(@ModelAttribute("currentUser") User user) {
+    public String createUser(@ModelAttribute("newuser") User user, @RequestParam("role") List<Long> roles) {
+        user.setRoles(roleService.findRoleById(roles));
         userService.add(user);
         return "redirect:/admin";
     }
 
     @GetMapping(value = "/admin")
-    public String printUsers(ModelMap model, Principal pr, User user) {
+    public String printUsers(ModelMap model, Principal pr) {
         List<User> users = userService.listUsers();
         model.addAttribute("users", users);
         model.addAttribute("currentUser", userService.findByEmail(pr.getName()));
@@ -52,8 +52,8 @@ public class UserController {
     @GetMapping("/admin/update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, ModelMap model) {
         User user = userService.findById(id);
-        model.addAttribute("user", user);
-        return "update";
+        model.addAttribute("edituser", user);
+        return "/admin/update/{id}";
     }
 
     @PostMapping("/admin/update")
@@ -69,16 +69,16 @@ public class UserController {
         return "user";
     }
 
-
-//    @GetMapping(value = "/admin")
-//    public String getAdminPage() {
-//        return "admin";
-//    }
-
-    @GetMapping(value = "/")
-    public String getLoginPage() {
-        return "login";
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            request.getSession().invalidate();
+        }
+        return "redirect:/login";
     }
+
+
 
 
 }

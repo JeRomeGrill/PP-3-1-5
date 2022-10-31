@@ -3,148 +3,179 @@
 <html lang="en">
 
 
-    <head>
+<head>
 
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    </head>
-        <title>Admin panel</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<title>Admin panel</title>
 
 
-    <body style="background-color:#f9fafa">
+<body style="background-color:#f9fafa">
+<!--Верхняя навигация-->
+<div class="container-fluid ">
+    <dl class="row" style="background-color: #353a3f">
+        <div class="col-11 text-left">
+            <ul class="list-inline h5">
+                <li class="list-inline-item text-white text-strong navbar-brand"
+                    th:utext="${currentUser.getEmail()}"></li>
+                <li class="list-inline-item text-white navbar-brand">with roles:</li>
+                <li class="list-inline-item text-white navbar-brand" th:utext="${currentUser.rolesToString()}">
+                    <strong></strong></li>
+            </ul>
+        </div>
+        <div class="col-1 h6">
+            <a class="navbar-brand text-white text-right" href="/logout">Logout</a>
+        </div>
+    </dl>
+</div>
+<!--Верхняя навигация-->
 
-    <div class="container-fluid ">
-        <dl class="row" style="background-color: #353a3f">
-            <div class="col-11 text-left">
-                <ul class="list-inline h5">
-                    <li class="list-inline-item text-white text-strong navbar-brand" th:utext="${currentUser.getEmail()}"></li>
-                    <li class="list-inline-item text-white navbar-brand">with roles:</li>
-                    <li class="list-inline-item text-white navbar-brand" th:utext="${currentUser.rolesToString()}"><strong></strong></li>
+
+<div class="container-fluid ">
+    <div class="row" style="background-color: #f8f9fa">
+        <!--Левая навигация-->
+        <div class="col-2 text-left" style="background-color: #ffffff">
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item active" aria-current="true">
+                        <a class="navbar-brand text-white text-right" href="/admin">Admin</a></li>
+                    <li class="list-group-item">
+                        <a class="navbar-brand text-blue text-right" href="/user">User</a></li>
                 </ul>
             </div>
-            <div class="col-1 h6">
-                <a class="navbar-brand text-white text-right" href="/logout">Logout</a>
-            </div>
-        </dl>
-    </div>
-    </nav>
 
+        </div>
+        <!--Левая навигация-->
 
-    <div class="container-fluid ">
-        <div class="row" style="background-color: #f8f9fa">
-            <div class="col-2 text-left" style="background-color: #ffffff">
-                <div class="row">
-                    <ul class="list-group">
-                        <li class="list-group-item active" aria-current="true">
-                            <a class="navbar-brand text-white text-right" href="/admin">Admin</a></li>
-                        <li class="list-group-item">
-                            <a class="navbar-brand text-blue text-right" href="/user">User</a></li>
-                    </ul>
-<!--                    <nav class="nav flex-column">-->
-<!--                        <a class="nav-link active" aria-current="page" href="/admin">Admin</a>-->
-<!--                        <a class="nav-link" href="/user">User</a>-->
-<!--                    </nav>-->
-                </div>
-
-            </div>
-            <div class="col-10">
-                <div class="container-fluid">
-
-                </div>
-                <div class="container-fluid">
-                    <!-- Tabs or Pills can be used in a card with the help of .nav-{tabs|pills} and .card-header-{tabs|pills} classes -->
-                    <div class="card">
-                        <div class="card-header" style="background-color: #f8f9fa">
-                            <h1>Admin panel</h1>
-                            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Users table</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="/admin#new-user" role="tab" aria-controls="profile" aria-selected="false">New User</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="card-header" style="background-color: #f8f9fa">
-                                        <h4>All users</h4>
-                                    </div>
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Password</th>
-                                            <th scope="col">Roles</th>
-                                            <th scope="col">Edit</th>
-                                            <th scope="col">Delete</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="user : ${users}">
-                                            <td th:text="${user.id}"></td>
-                                            <td th:text="${user.firstName}"></td>
-                                            <td th:text="${user.lastName}"></td>
-                                            <td th:text="${user.email}"></td>
-                                            <td th:text="${user.password}"></td>
-                                            <td th:text="${user.rolesToString()}"></td>
-                                            <td> <a type="button" class="btn btn-success btn-sm" th:href="@{admin/update/{id}(id=${user.id})}">Edit</a></td>
-                                            <td><a type="button" class="btn btn-danger btn-sm" th:href="@{admin/delete/{id}(id=${user.id})}">Delete</a></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+        <!--Основной контент страницы-->
+        <div class="col-10">
+            <div class="container-fluid">
+                <!-- Tabs or Pills can be used in a card with the help of .nav-{tabs|pills} and .card-header-{tabs|pills} classes -->
+                <div class="card">
+                    <div class="card-header" style="background-color: #f8f9fa">
+                        <h1>Admin panel</h1>
+                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
+                                   aria-controls="home" aria-selected="true">Users table</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#new-user"
+                                   role="tab" aria-controls="profile" aria-selected="false">New User</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="myTabContent">
+                            <!--Таблица всех пользователей-->
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="card-header" style="background-color: #f8f9fa">
+                                    <h4>All users</h4>
                                 </div>
-                                <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                                    <div class="card-header" style="background-color: #f8f9fa">
-                                    <h4>Create new user</h4>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Roles</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user : ${users}">
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.firstName}"></td>
+                                        <td th:text="${user.lastName}"></td>
+                                        <td th:text="${user.email}"></td>
+                                        <td th:text="${user.password}"></td>
+                                        <td th:text="${user.rolesToString()}"></td>
+                                        <td><a type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                               th:href="@{admin/#staticBackdrop/{id}(id=${user.id})}">Edit</a></td>
+                                        <td><a type="button" class="btn btn-danger btn-sm"
+                                               th:href="@{admin/delete/{id}(id=${user.id})}">Delete</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--Таблица всех пользователей-->
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit user</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                    <div class="d-grid gap-2 col-5 mx-auto p-2">
-                                        <form action="#" th:action="@{#new-user}" th:object="${newuser}" method="post">
-                                    <label for="firstName" class="form-label">First name</label>
-                                    <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="First name">
-                                        <label for="lastName" class="form-label">Last name</label>
-                                        <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last name">
-                                        <label for="email" class="form-label">Email address</label>
-                                        <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="name@example.com">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
-                                            <button type="submit" class="btn btn-success btn-lg">Large button</button>
-                                        </form>
+                                        <div class="modal-body">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Edit</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Modal -->
+                            <!--Окно нового пользователя-->
+                            <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="profile-tab"
+                                 tabindex="0">
+                                <div class="card-header" style="background-color: #f8f9fa">
+                                    <h4>Create new user</h4>
+                                </div>
+                                <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
+                                    <form th:action="@{#new-user}" th:object="${newuser}" method="post">
+
+                                        <label for="firstName" class="form-label">First name</label>
+
+                                        <input type="text" th:field="*{firstName}" class="form-control" id="firstName"
+                                               placeholder="First name">
+
+                                        <label for="lastName" class="form-label">Last name</label>
+                                        <input type="text" th:field="*{lastName}" class="form-control" id="lastName"
+                                               placeholder="Last name">
+                                        <label for="email" class="form-label">Email address</label>
+                                        <input type="text" th:field="*{email}" class="form-control" id="email"
+                                               placeholder="name@example.com">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" th:field="*{password}" class="form-control" id="password"
+                                               placeholder="Password">
+
+                                        <label for="roles" class="form-label">Role</label>
+                                        <select class="form-select" multiple name="role" id="roles">
+                                            <option value="1">USER</option>
+                                            <option value="2">ADMIN</option>
+                                        </select>
+                                        <div class="row p-3"></div>
+                                        <div class="d-grid gap-2 col-5 mx-auto p-1 text-center">
+                                            <button type="submit" class="btn btn-success btn-lg">Add new user</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--Окно нового пользователя-->
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
+        <!--Основной контент страницы-->
     </div>
+</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 </body>
 </html>
