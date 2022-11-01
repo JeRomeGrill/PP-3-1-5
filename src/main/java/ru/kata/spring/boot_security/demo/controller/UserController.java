@@ -49,15 +49,15 @@ public class UserController {
         return "redirect:/admin";
     }
 
-//    @GetMapping("/admin/{id}")
-//    public String updateUserForm(@PathVariable("id") Long id, ModelMap model) {
-//        User user = userService.findById(id);
-//        model.addAttribute("userEd", user);
-//        return "redirect:/admin";
-//    }
+    @GetMapping("/admin/update")
+    public String updateUserForm(@RequestParam(value = "id") Long id, ModelMap model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "user";
+    }
 
-    @PostMapping("/admin/update")
-    public String updateUser(@ModelAttribute("userRed") User user, @RequestParam("role") List<Long> roles) {
+    @PostMapping("/admin/{id}/update")
+    public String updateUser(@ModelAttribute("user") User user, @RequestParam("role") List<Long> roles) {
         user.setRoles(roleService.findRoleById(roles));
         userService.changeUser(user);
         return "redirect:/admin";
