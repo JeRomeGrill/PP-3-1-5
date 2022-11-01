@@ -114,17 +114,17 @@
                                                             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <form th:action="@{/{id}/edit(id=${user.id})}"
+                                                        <form th:action="@{admin/{id}/update(id=${user.id})}"
                                                               th:object="${user}" th:method="POST">
                                                             <div class="modal-body col-md text-center">
                                                                 <br>
-                                                                <label for="firstNameRed"><b>Name</b></label>
-                                                                <input th:name="name" th:type="text"
+                                                                <label for="firstNameRed"><b>First name</b></label>
+                                                                <input th:name="firstName" th:type="text"
                                                                        class="form-control" id="firstNameRed"
                                                                        th:value="${user.firstName}"/>
                                                                 <br>
-                                                                <label for="lastNameRed"><b>Surname</b></label>
-                                                                <input th:name="surname" th:type="text"
+                                                                <label for="lastNameRed"><b>Last name</b></label>
+                                                                <input th:name="lastName" th:type="text"
                                                                        class="form-control" id="lastNameRed"
                                                                        th:value="${user.lastName}"/>
                                                                 <br>
@@ -133,20 +133,15 @@
                                                                        class="form-control" id="emailRed"
                                                                        th:value="${user.email}"/>
                                                                 <br>
-                                                                <label for="passwordRed"><b>Username</b></label>
-                                                                <input th:name="username" th:type="text"
+                                                                <label for="passwordRed"><b>Password</b></label>
+                                                                <input th:name="password" th:type="password"
                                                                        class="form-control" id="passwordRed"
                                                                        th:value="${user.password}"/>
                                                                 <br>
-                                                                <label for="roleAdmin"><b>Role</b></label>
-                                                                <select multiple class="form-control form-control-sm"
-                                                                        id="roleAdmin" name="roleAdmin" size="2"
-                                                                        required>
-                                                                    <option th:value="ROLE_ADMIN"
-                                                                            th:checked="user.roles"
-                                                                            th:text="ROLE_ADMIN"></option>
-                                                                    <option th:value="ROLE_USER" th:checked="user.roles"
-                                                                            th:text="ROLE_USER"></option>
+                                                                <label for="rolesRed" class="form-label">Role</label>
+                                                                <select class="form-select" multiple name="role" id="rolesRed" required>
+                                                                    <option value="1">USER</option>
+                                                                    <option value="2">ADMIN</option>
                                                                 </select>
                                                                 <br><br>
                                                             </div>
