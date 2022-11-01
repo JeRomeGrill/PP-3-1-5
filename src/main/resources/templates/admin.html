@@ -105,18 +105,21 @@
                                                data-bs-target="editModal"
                                                     th:data-bs-target="${'#editModal' + user.id}">Edit</a></td>
                                         <td><a type="button" class="btn btn-danger btn-sm"
-                                               th:href="@{admin/delete/{id}(id=${user.getId()})}">Delete</a></td>
-                                        <!-- Modal --------------------------------------------------------------------->
+                                               data-bs-toggle="modal"
+                                               data-bs-target="deleteModal"
+                                               th:data-bs-target="${'#deleteModal'+ user.id}">Delete</a></td>
+                                        <!-- Modal edit --------------------------------------------------------------------->
                                             <div class="modal fade" th:id="${'editModal' + user.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
+                                                            <h1 class="modal-title fs-5" id="editModalLabel">Edit user</h1>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <form th:action="@{admin/{id}/update(id=${user.id})}"
                                                               th:object="${user}" th:method="POST">
                                                             <div class="modal-body col-md text-center">
+                                                                <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
                                                                 <br>
                                                                 <label for="firstNameRed"><b>First name</b></label>
                                                                 <input th:name="firstName" th:type="text"
@@ -153,11 +156,65 @@
                                                                         data-bs-dismiss="modal">Close
                                                                 </button>
                                                             </div>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                        <!-- Modal -->
+                                        <!-- Modal delete -->
+                                        <div class="modal fade" th:id="${'deleteModal' + user.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="deleteModalLabel">Edit user</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form th:action="@{admin/{id}/delete(id=${user.id})}"
+                                                          th:object="${user}" th:method="POST">
+                                                        <div class="modal-body col-md text-center">
+                                                            <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
+                                                                <br>
+                                                                <label for="firstNameDel"><b>First name</b></label>
+                                                                <input th:name="firstName" th:type="text"
+                                                                       class="form-control" id="firstNameDel"
+                                                                       th:value="${user.firstName}" disabled/>
+                                                                <br>
+                                                                <label for="lastNameDel"><b>Last name</b></label>
+                                                                <input th:name="lastName" th:type="text"
+                                                                       class="form-control" id="lastNameDel"
+                                                                       th:value="${user.lastName}" disabled/>
+                                                                <br>
+                                                                <label for="emailDel"><b>Email</b></label>
+                                                                <input th:name="email" th:type="text"
+                                                                       class="form-control" id="emailDel"
+                                                                       th:value="${user.email}" disabled/>
+                                                                <br>
+                                                                <label for="passwordDel"><b>Password</b></label>
+                                                                <input th:name="password" th:type="password"
+                                                                       class="form-control" id="passwordDel"
+                                                                       th:value="${user.password}" disabled/>
+                                                                <br>
+                                                                <label for="rolesDel" class="form-label">Role</label>
+                                                                <select class="form-select" multiple name="role" id="rolesDel" disabled>
+                                                                    <option value="1">USER</option>
+                                                                    <option value="2">ADMIN</option>
+                                                                </select>
+                                                                <br><br>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    Delete
+                                                                </button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal delete -->
                                     </tr>
                                     </tbody>
                                 </table>
