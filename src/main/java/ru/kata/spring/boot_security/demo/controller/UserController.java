@@ -27,7 +27,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/admin")
+    @PostMapping("/admin/create")
     public String createUser(@ModelAttribute("newuser") User user, @RequestParam("role") List<Long> roles) {
         user.setRoles(roleService.findRoleById(roles));
         userService.add(user);
@@ -49,15 +49,15 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, ModelMap model) {
-        User user = userService.findById(id);
-        model.addAttribute("edituser", user);
-        return "/admin/update/{id}";
-    }
+//    @GetMapping("/admin/{id}")
+//    public String updateUserForm(@PathVariable("id") Long id, ModelMap model) {
+//        User user = userService.findById(id);
+//        model.addAttribute("userEd", user);
+//        return "redirect:/admin";
+//    }
 
     @PostMapping("/admin/update")
-    public String updateUser(User user, @RequestParam("role") List<Long> roles) {
+    public String updateUser(@ModelAttribute("userRed") User user, @RequestParam("role") List<Long> roles) {
         user.setRoles(roleService.findRoleById(roles));
         userService.changeUser(user);
         return "redirect:/admin";
