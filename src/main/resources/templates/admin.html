@@ -103,23 +103,25 @@
                                             <a type="button" class="btn btn-success btn-sm"
                                                data-bs-toggle="modal"
                                                data-bs-target="editModal"
-                                                    th:data-bs-target="${'#editModal' + user.id}">Edit</a></td>
+                                               th:data-bs-target="${'#editModal' + user.id}">Edit</a></td>
                                         <td><a type="button" class="btn btn-danger btn-sm"
                                                data-bs-toggle="modal"
                                                data-bs-target="deleteModal"
                                                th:data-bs-target="${'#deleteModal'+ user.id}">Delete</a></td>
                                         <!-- Modal edit --------------------------------------------------------------------->
-                                            <div class="modal fade" th:id="${'editModal' + user.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="editModalLabel">Edit user</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <form th:action="@{admin/{id}/update(id=${user.id})}"
-                                                              th:object="${user}" th:method="POST">
-                                                            <div class="modal-body col-md text-center">
-                                                                <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
+                                        <div class="modal fade" th:id="${'editModal' + user.id}" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="editModalLabel">Edit user</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <form th:action="@{admin/{id}/update(id=${user.id})}"
+                                                          th:object="${user}" th:method="POST">
+                                                        <div class="modal-body col-md text-center">
+                                                            <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
                                                                 <br>
                                                                 <label for="firstNameRed"><b>First name</b></label>
                                                                 <input th:name="firstName" th:type="text"
@@ -142,7 +144,8 @@
                                                                        th:value="${user.password}"/>
                                                                 <br>
                                                                 <label for="rolesRed" class="form-label">Role</label>
-                                                                <select class="form-select" multiple name="role" id="rolesRed" required>
+                                                                <select class="form-select" multiple name="role"
+                                                                        id="rolesRed" required>
                                                                     <option value="1">USER</option>
                                                                     <option value="2">ADMIN</option>
                                                                 </select>
@@ -156,18 +159,21 @@
                                                                         data-bs-dismiss="modal">Close
                                                                 </button>
                                                             </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
+                                        </div>
                                         <!-- Modal delete -->
-                                        <div class="modal fade" th:id="${'deleteModal' + user.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" th:id="${'deleteModal' + user.id}" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="deleteModalLabel">Edit user</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <h1 class="modal-title fs-5" id="deleteModalLabel">Edit
+                                                            user</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
                                                     </div>
                                                     <form th:action="@{admin/{id}/delete(id=${user.id})}"
                                                           th:object="${user}" th:method="POST">
@@ -195,7 +201,8 @@
                                                                        th:value="${user.password}" disabled/>
                                                                 <br>
                                                                 <label for="rolesDel" class="form-label">Role</label>
-                                                                <select class="form-select" multiple name="role" id="rolesDel" disabled>
+                                                                <select class="form-select" multiple name="role"
+                                                                        id="rolesDel" disabled>
                                                                     <option value="1">USER</option>
                                                                     <option value="2">ADMIN</option>
                                                                 </select>
@@ -221,14 +228,15 @@
                             </div>
                             <!--Таблица всех пользователей-->
 
-<!--                            Окно нового пользователя-->
+                            <!--                            Окно нового пользователя-->
                             <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="profile-tab"
                                  tabindex="0">
                                 <div class="card-header" style="background-color: #f8f9fa">
                                     <h4>Create new user</h4>
                                 </div>
                                 <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
-                                    <form id="formcreate" th:action="@{/admin/create}" th:object="${newuser}" method="post">
+                                    <form id="formcreate" th:action="@{/admin/create}" th:object="${newuser}"
+                                          method="post">
 
                                         <label for="firstName" class="form-label">First name</label>
 
@@ -257,7 +265,7 @@
                                     </form>
                                 </div>
                             </div>
-<!--                            Окно нового пользователя-->
+                            <!--                            Окно нового пользователя-->
                         </div>
                     </div>
                 </div>
@@ -267,7 +275,6 @@
         <!--Основной контент страницы-->
     </div>
 </div>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

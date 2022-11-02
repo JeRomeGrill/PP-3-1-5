@@ -49,6 +49,7 @@ public class UserController {
         model.addAttribute("user", user);
         return "user";
     }
+
     @PostMapping("/admin/{id}/delete")
     public String deleteUser(@ModelAttribute("user") User user) {
         userService.removeUser(user.getId());
@@ -83,8 +84,6 @@ public class UserController {
         }
         return "redirect:/login";
     }
-
-
 
 
 }
