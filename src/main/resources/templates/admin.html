@@ -118,7 +118,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form th:action="@{admin/{id}/update(id=${user.id})}"
+                                                    <form th:action="@{{id}/update(id=${user.id})}"
                                                           th:object="${user}" th:method="POST">
                                                         <div class="modal-body col-md text-center">
                                                             <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
@@ -175,7 +175,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form th:action="@{admin/{id}/delete(id=${user.id})}"
+                                                    <form th:action="@{{id}/delete(id=${user.id})}"
                                                           th:object="${user}" th:method="POST">
                                                         <div class="modal-body col-md text-center">
                                                             <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
