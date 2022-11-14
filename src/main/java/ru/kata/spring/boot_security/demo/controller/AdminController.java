@@ -30,13 +30,13 @@ public class AdminController {
 
 
 
-//    @PostMapping("/create")
-//    public String createUser(@ModelAttribute("newuser") User user, @RequestParam("role") List<Long> roles) {
-//        user.setRoles(roleService.findRoleById(roles));
-//        userService.add(user);
-//        return "redirect:/admin/panel";
-//    }
-//
+    @PostMapping("/create")
+    public String createUser(@ModelAttribute("newuser") User user, @RequestParam("role") List<Long> roles) {
+        user.setRoles(roleService.findRoleById(roles));
+        userService.add(user);
+        return "redirect:/admin/panel";
+    }
+
     @GetMapping(value = "/panel")
     public String printUsers(ModelMap model, Principal pr) {
         List<User> users = userService.listUsers();

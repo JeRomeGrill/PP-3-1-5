@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,8 @@ public class RestUserController {
         return userService.findByEmail(pr.getName());
     }
     @GetMapping ("/users")
-    public List<User> getAllUsers () {
-        return userService.listUsers();
+    public ResponseEntity<List<User>> getAllUsers () {
+        return ResponseEntity.ok(userService.listUsers());
     }
 
 
