@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -27,10 +27,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping ("/users")
-    public List <User> getAllUsers () {
-        return userService.listUsers();
-    }
+
 
 
 //    @PostMapping("/create")
@@ -40,14 +37,14 @@ public class AdminController {
 //        return "redirect:/admin/panel";
 //    }
 //
-//    @GetMapping(value = "/panel")
-//    public String printUsers(ModelMap model, Principal pr) {
-//        List<User> users = userService.listUsers();
-//        model.addAttribute("users", users);
-//        model.addAttribute("currentUser", userService.findByEmail(pr.getName()));
-//        model.addAttribute("newuser", new User());
-//        return "admin";
-//    }
+    @GetMapping(value = "/panel")
+    public String printUsers(ModelMap model, Principal pr) {
+        List<User> users = userService.listUsers();
+        model.addAttribute("users", users);
+        model.addAttribute("currentUser", userService.findByEmail(pr.getName()));
+        model.addAttribute("newuser", new User());
+        return "admin";
+    }
 //
 //    @GetMapping("/delete")
 //    public String deleteUserform(@RequestParam(value = "id") Long id, ModelMap model) {
@@ -75,6 +72,14 @@ public class AdminController {
 //        userService.changeUser(user);
 //        return "redirect:/admin/panel";
 //    }
+@GetMapping("/logout")
+public String logout(HttpServletRequest request) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication != null) {
+        request.getSession().invalidate();
+    }
+    return "redirect:/login";
+}
 
 
 
