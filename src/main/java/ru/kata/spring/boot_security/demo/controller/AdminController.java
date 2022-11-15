@@ -38,11 +38,11 @@ public class AdminController {
     }
 
     @GetMapping(value = "/panel")
-    public String printUsers(ModelMap model, Principal pr) {
-        List<User> users = userService.listUsers();
-        model.addAttribute("users", users);
-        model.addAttribute("currentUser", userService.findByEmail(pr.getName()));
-        model.addAttribute("newuser", new User());
+    public String printUsers() {
+//        List<User> users = userService.listUsers();
+//        model.addAttribute("users", users);
+//        model.addAttribute("currentUser", userService.findByEmail(pr.getName()));
+//        model.addAttribute("newuser", new User());
         return "admin";
     }
 //
