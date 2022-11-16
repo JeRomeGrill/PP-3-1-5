@@ -31,7 +31,7 @@
             </ul>
         </div>
         <div class="col-1 h6">
-            <a class="navbar-brand text-white text-right" href="/logout">Logout</a>
+            <a class="navbar-brand text-white text-right" href="/admin/logout">Logout</a>
         </div>
     </dl>
 </div>
@@ -88,37 +88,38 @@
 <!--                      Таблица-->
                       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                           <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
-<!--                              <form id="formcreate" th:action="@{/admin/create}" th:object="${newuser}"-->
-<!--                                    method="post">-->
+                              <form id="newUser" action="http://localhost:8080/api/users" method="post">
 
-<!--                                  <label for="firstName" class="form-label">First name</label>-->
+                                  <label for="firstName" class="form-label">First name</label>
 
-<!--                                  <input type="text" th:field="*{firstName}" class="form-control"-->
-<!--                                         id="firstName"-->
-<!--                                         placeholder="First name">-->
+                                  <input type="text" class="form-control"
+                                         id="firstName"
+                                         placeholder="First name">
 
-<!--                                  <label for="lastName" class="form-label">Last name</label>-->
-<!--                                  <input type="text" th:field="*{lastName}" class="form-control" id="lastName"-->
-<!--                                         placeholder="Last name">-->
-<!--                                  <label for="email" class="form-label">Email address</label>-->
-<!--                                  <input type="text" th:field="*{email}" class="form-control" id="email"-->
-<!--                                         placeholder="name@example.com">-->
-<!--                                  <label for="password" class="form-label">Password</label>-->
-<!--                                  <input type="password" th:field="*{password}" class="form-control"-->
-<!--                                         id="password"-->
-<!--                                         placeholder="Password">-->
+                                  <label for="lastName" class="form-label">Last name</label>
+                                  <input type="text" class="form-control" id="lastName"
+                                         placeholder="Last name">
+                                  <label for="email" class="form-label">Email address</label>
+                                  <input type="text"  class="form-control" id="email"
+                                         placeholder="name@example.com">
+                                  <label for="password" class="form-label">Password</label>
+                                  <input type="password" class="form-control"
+                                         id="password"
+                                         placeholder="Password">
 
-<!--                                  <label for="roles" class="form-label">Role</label>-->
-<!--                                  <select class="form-select" multiple name="role" id="roles">-->
-<!--                                      <option value="1">USER</option>-->
-<!--                                      <option value="2">ADMIN</option>-->
-<!--                                  </select>-->
-<!--                                  <div class="row p-3"></div>-->
-<!--                                  <div class="d-grid gap-2 col-5 mx-auto p-1 text-center">-->
-<!--                                      <button type="submit" class="btn btn-success btn-lg">Add new user-->
-<!--                                      </button>-->
-<!--                                  </div>-->
-<!--                              </form>-->
+                                  <label for="roles" class="form-label">Role</label>
+                                  <select class="form-select" multiple name="role" id="roles">
+                                      <option value="1">USER</option>
+                                      <option value="2">ADMIN</option>
+                                  </select>
+                                  <div class="row p-3"></div>
+                                  <div class="d-grid gap-2 col-5 mx-auto p-1 text-center">
+                                      <button type="submit" class="btn btn-success btn-lg"
+                                              id="addNewUser" onclick="reload_interval(500)">
+                                          Add new user
+                                      </button>
+                                  </div>
+                              </form>
                           </div>
                       </div>
                   </div>

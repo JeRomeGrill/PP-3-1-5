@@ -73,3 +73,73 @@ function getRoles(list) {
     }
     return userRoles.join(" , ");
 }
+
+function rolesUser(event) {
+    let rolesAdmin = {};
+    let rolesUser = {};
+    let roles = [];
+    let allRoles = [];
+    let sel = document.querySelector(event);
+    for (let i = 0, n = sel.options.length; i < n; i++) {
+        if (sel.options[i].selected) {
+            roles.push(sel.options[i].value);
+        }
+    }
+    if (roles.includes("ROLE_ADMIN")) {
+        rolesAdmin["id"] = 2;
+        rolesAdmin["role"] = "ROLE_ADMIN";
+        allRoles.push(rolesAdmin);
+    }
+    if (roles.includes("ROLE_USER")) {
+        rolesUser["id"] = 1;
+        rolesUser["role"] = "ROLE_USER";
+        allRoles.push(rolesUser);
+    }
+    return allRoles;
+}
+// Для добавления пользователя
+// $('.addNewUser').click(function () {
+//     $('#home-tab').trigger('click');
+//     let user = [];
+//     let formData = $("#newUser").serializeArray();
+//     formData.forEach((value, key) => user[key] = value);
+//     // user["roles"] = rolesUser("#roles");
+//     $.ajax({
+//         type: 'POST',
+//         url: '/api/users',
+//         data: user,
+//         timeout: 100,
+//         headers: {
+//             'Content-Type': 'application/json; charset=UTF-8',
+//         },
+//         success: function () {
+//
+//             $('.newUser')[0].reset();
+//             showUsers();
+//         }
+//     })
+// });
+document.querySelector("newUser").addEventListener('submit', (submitFormNewUser) => {
+    // submitFormNewUser.preventDefault();
+    let user = Object.fromEntries(new FormData(submitFormNewUser.target).entries());
+    user = JSON.stringify({
+        firstName: user.firstName(),
+        lastName: user.lastName(),
+        email: user.email(),
+        password: user.password(),
+        roles: rolesUser('#roles')
+    });
+
+    $.ajax({
+        url: "http://localhost:8080/api/users",
+        type: 'POST',
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: user,
+        success: function(data) {
+            $('.newUser')[0].reset();
+            showUsers();
+        }
+    });
+
+});
