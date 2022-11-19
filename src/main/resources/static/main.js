@@ -87,12 +87,12 @@ function rolesUser(event) {
     }
     if (roles.includes("ROLE_ADMIN")) {
         rolesAdmin["id"] = 2;
-        rolesAdmin["role"] = "ROLE_ADMIN";
+        rolesAdmin["name"] = "ROLE_ADMIN";
         allRoles.push(rolesAdmin);
     }
     if (roles.includes("ROLE_USER")) {
         rolesUser["id"] = 1;
-        rolesUser["role"] = "ROLE_USER";
+        rolesUser["name"] = "ROLE_USER";
         allRoles.push(rolesUser);
     }
     return allRoles;
@@ -119,27 +119,27 @@ function rolesUser(event) {
 //         }
 //     })
 // });
-document.querySelector("newUser").addEventListener('submit', (submitFormNewUser) => {
-    // submitFormNewUser.preventDefault();
-    let user = Object.fromEntries(new FormData(submitFormNewUser.target).entries());
-    user = JSON.stringify({
-        firstName: user.firstName(),
-        lastName: user.lastName(),
-        email: user.email(),
-        password: user.password(),
-        roles: rolesUser('#roles')
+document.querySelector('#newUser').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let newUserForm = new FormData(e.target);
+    let user = {};
+    newUserForm.forEach((value, key) => user[key] = value);
+    user["roles"] = rolesUser("#roles");
+    let request = new Request(e.target.action, {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
 
-    $.ajax({
-        url: "http://localhost:8080/api/users",
-        type: 'POST',
-        dataType: 'json',
-        contentType: "application/json; charset=utf-8",
-        data: user,
-        success: function(data) {
-            $('.newUser')[0].reset();
-            showUsers();
-        }
-    });
+    fetch(request).then(
+        res => {
+            res.json().then(
+                newUser => {
+                    tableUsers.push(newUser);
+                    showUsers(tableUsers);
+                })
+        });
 
 });

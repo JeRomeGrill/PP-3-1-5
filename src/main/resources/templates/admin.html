@@ -88,34 +88,34 @@
 <!--                      Таблица-->
                       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                           <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
-                              <form id="newUser" action="http://localhost:8080/api/users" method="post">
+                              <form id="newUser" action="http://localhost:8080/api/users">
 
                                   <label for="firstName" class="form-label">First name</label>
 
                                   <input type="text" class="form-control"
-                                         id="firstName"
+                                         id="firstName" name="firstName"
                                          placeholder="First name">
 
                                   <label for="lastName" class="form-label">Last name</label>
-                                  <input type="text" class="form-control" id="lastName"
+                                  <input type="text" class="form-control" id="lastName" name="lastName"
                                          placeholder="Last name">
                                   <label for="email" class="form-label">Email address</label>
-                                  <input type="text"  class="form-control" id="email"
+                                  <input type="text"  class="form-control" id="email" name="email"
                                          placeholder="name@example.com">
                                   <label for="password" class="form-label">Password</label>
-                                  <input type="password" class="form-control"
+                                  <input type="password" class="form-control" name="password"
                                          id="password"
                                          placeholder="Password">
 
                                   <label for="roles" class="form-label">Role</label>
-                                  <select class="form-select" multiple name="role" id="roles">
-                                      <option value="1">USER</option>
-                                      <option value="2">ADMIN</option>
+                                  <select class="form-select" multiple name="roles" id="roles">
+                                      <option value="ROLE_USER">USER</option>
+                                      <option value="ROLE_ADMIN">ADMIN</option>
                                   </select>
                                   <div class="row p-3"></div>
                                   <div class="d-grid gap-2 col-5 mx-auto p-1 text-center">
                                       <button type="submit" class="btn btn-success btn-lg"
-                                              id="addNewUser" onclick="reload_interval(500)">
+                                              id="addNewUser">
                                           Add new user
                                       </button>
                                   </div>

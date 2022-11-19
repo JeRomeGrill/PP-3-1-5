@@ -34,10 +34,8 @@ public class RestUserController {
         return ResponseEntity.ok(userService.listUsers());
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createNewUser (@RequestBody User user, HttpServletRequest request,
-                                            HttpServletResponse response){
+    @PostMapping
+    public ResponseEntity<?> createNewUser (@RequestBody User user){
         userService.add(user);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }

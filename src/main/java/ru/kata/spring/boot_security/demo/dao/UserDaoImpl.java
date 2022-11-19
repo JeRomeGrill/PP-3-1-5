@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void add(User user) {
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
