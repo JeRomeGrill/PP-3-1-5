@@ -37,7 +37,7 @@ public class RestUserController {
     @PostMapping
     public ResponseEntity<?> createNewUser (@RequestBody User user){
         userService.add(user);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.ok(user);
     }
 
 

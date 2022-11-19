@@ -1,13 +1,21 @@
 
 let tableUsers = [];
 let currentUser = "";
-fetch("http://localhost:8080/api/users").then(
+let request = new Request("http://localhost:8080/api/users", {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+fetch(request).then(
     res => {
         res.json().then(
             data => {
                 if (data.length > 0) {
                     data.forEach((user) => {
-                        tableUsers.push(user)
+                        if (user.id != null) {
+                            tableUsers.push(user)
+                        }
                     })
                     console.log(tableUsers);
                     showUsers(tableUsers);
@@ -64,10 +72,10 @@ function showOneUser(event) {
 function getRoles(list) {
     let userRoles = [];
     for (let role of list) {
-        if (role.name === "ROLE_ADMIN") {
+        if (role === 2 || role.id === 2) {
             userRoles.push("ADMIN");
         }
-        if (role.name === "ROLE_USER") {
+        if (role === 1 || role.id === 1) {
             userRoles.push("USER");
         }
     }
@@ -119,7 +127,8 @@ function rolesUser(event) {
 //         }
 //     })
 // });
-document.querySelector('#newUser').addEventListener('submit', (e) => {
+document.querySelector('#newUser').addEventListener('submit', submitFormNewUser);
+function submitFormNewUser(e) {
     e.preventDefault();
     let newUserForm = new FormData(e.target);
     let user = {};
@@ -133,13 +142,11 @@ document.querySelector('#newUser').addEventListener('submit', (e) => {
         },
     });
 
-    fetch(request).then(
-        res => {
-            res.json().then(
-                newUser => {
+    fetch(request).
+    then( res => res.json()).
+    then(newUser => {
                     tableUsers.push(newUser);
-                    showUsers(tableUsers);
-                })
-        });
+                    showUsers(tableUsers);}
+                );
 
-});
+}
