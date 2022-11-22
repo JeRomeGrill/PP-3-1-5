@@ -134,16 +134,11 @@ function submitFormNewUser(e) {
 
 }
 
-document.querySelector('#deleteUser').addEventListener('submit', submitFormDeleteUser);
 
-function submitFormDeleteUser(event) {
-    event.preventDefault();
-    let formData = new FormData(event.target);
-    let user = {};
-    formData.forEach((value, key) => user[key] = value);
-    let request = new Request("http://localhost:8080/api/users/" + user["id"], {
+
+function submitFormDeleteUser(id) {
+    let request = new Request("http://localhost:8080/api/users/" + id, {
         method: 'DELETE',
-        body: JSON.stringify(user),
         headers: {
             'Content-Type': 'application/json',
         },
@@ -151,7 +146,7 @@ function submitFormDeleteUser(event) {
     fetch(request).then(
         function (response) {
             console.log(response);
-            let deleteUser = tableUsers.find(item => item.id === user["id"]);
+            let deleteUser = tableUsers.find(item => item.id === id);
             tableUsers = tableUsers.filter(function (user) {
                 return user !== deleteUser;
             })
@@ -162,13 +157,9 @@ function submitFormDeleteUser(event) {
         }
     );
     console.log('Запрос request отправляется');
-    const triggerEl = document.querySelector('#v-pills-tabContent button[data-bs-target="#nav-home"]')
-    bootstrap.Tab.getInstance(triggerEl).show()
-
+    deleteModal.hide();
 }
-document.getElementById('allUsersBody').addEventListener('DOMContentLoaded',function (){
-    document.getElementById('#deleteButton').addEventListener("click", showDeleteModal)
-});
+
 
 
 
@@ -184,15 +175,27 @@ function showDeleteModal(id){
     then( res => res.json()).
     then(deleteUser => {
         console.log(deleteUser);
-        let form = document.getElementById('deleteUser');
-        let data = new FormData(form);
-        data.set("firstNameDel", "TEST");
-
+        document.getElementById('firstNameDel').setAttribute('value',deleteUser.firstName);
+        document.getElementById('lastNameDel').setAttribute('value',deleteUser.lastName);
+        document.getElementById('emailDel').setAttribute('value',deleteUser.email);
+        document.getElementById('passwordDel').setAttribute('value',deleteUser.password);
+        if (getRoles(deleteUser.roles).includes("USER") && getRoles(deleteUser.roles).includes("ADMIN")){
+            document.getElementById('rolesDel1').setAttribute('selected', 'true');
+            document.getElementById('rolesDel2').setAttribute('selected', 'true');
+        }
+        else if (getRoles(deleteUser.roles).includes("USER")) {
+            document.getElementById('rolesDel1').setAttribute('selected', 'true');
+        }
+        else if (getRoles(deleteUser.roles).includes("ADMIN")){
+            document.getElementById('rolesDel2').setAttribute('selected', 'true');
+        }
         deleteModal.show();
         }
     );
 
-
+    document.querySelector('#deleteUser').addEventListener('submit', function (){
+        submitFormDeleteUser(id)
+    } );
 }
 
 

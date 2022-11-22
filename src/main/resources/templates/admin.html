@@ -87,6 +87,7 @@
                           </table>
                       </div>
 <!--                      Таблица-->
+                      <!--                     Создание нового пользователя-->
                       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                           <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
                               <form id="newUser" action="http://localhost:8080/api/users">
@@ -123,6 +124,7 @@
                               </form>
                           </div>
                       </div>
+                      <!--                     Создание нового пользователя-->
                   </div>
 
 
@@ -183,7 +185,7 @@
                     <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
                         <br>
                         <label for="firstNameDel"><b>First name</b></label>
-                        <input class="form-control" id="firstNameDel" name="firstNameDel" disabled/>
+                        <input class="form-control" id="firstNameDel" disabled/>
                         <br>
                         <label for="lastNameDel"><b>Last name</b></label>
                         <input class="form-control" id="lastNameDel" disabled/>
@@ -197,8 +199,8 @@
                         <label for="roles" class="form-label">Role</label>
                         <select class="form-select" name="rolesDel"
                                 multiple id="rolesDel" disabled>
-                            <option value="1">USER</option>
-                            <option value="2">ADMIN</option>
+                            <option id="rolesDel1" value="1">USER</option>
+                            <option id="rolesDel2" value="2">ADMIN</option>
                         </select>
                         <br><br>
                     </div>
@@ -212,6 +214,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
