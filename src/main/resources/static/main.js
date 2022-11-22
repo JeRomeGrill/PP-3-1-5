@@ -1,6 +1,8 @@
 
 let tableUsers = [];
 let currentUser = "";
+let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+const editModal = document.getElementById('editModal');
 let request = new Request("http://localhost:8080/api/users", {
     method: 'GET',
     headers: {
@@ -49,7 +51,7 @@ function showUsers(event) {
         temp += "<td>" + user.password + "</td>"
         temp += "<td>" + getRoles(user.roles) + "</td>"
         temp += "<td>" + `<a href="/api/users/${user.id}" class="btn btn-primary" id="edit">Edit</a>` + "</td>"
-        temp += "<td>" + `<a href="/api/users/${user.id}" class="btn btn-danger" id="delete">Delete</a>` + "</td>"
+        temp += "<td>" + `<a onclick='showDeleteModal(${user.id})' class="btn btn-danger" id="deleteButton" >Delete</a>` + "</td>"
         temp += "</tr>"
     })
     document.getElementById("allUsersBody").innerHTML = temp;
@@ -105,28 +107,6 @@ function rolesUser(event) {
     }
     return allRoles;
 }
-// Для добавления пользователя
-// $('.addNewUser').click(function () {
-//     $('#home-tab').trigger('click');
-//     let user = [];
-//     let formData = $("#newUser").serializeArray();
-//     formData.forEach((value, key) => user[key] = value);
-//     // user["roles"] = rolesUser("#roles");
-//     $.ajax({
-//         type: 'POST',
-//         url: '/api/users',
-//         data: user,
-//         timeout: 100,
-//         headers: {
-//             'Content-Type': 'application/json; charset=UTF-8',
-//         },
-//         success: function () {
-//
-//             $('.newUser')[0].reset();
-//             showUsers();
-//         }
-//     })
-// });
 document.querySelector('#newUser').addEventListener('submit', submitFormNewUser);
 function submitFormNewUser(e) {
     e.preventDefault();
@@ -148,5 +128,72 @@ function submitFormNewUser(e) {
                     tableUsers.push(newUser);
                     showUsers(tableUsers);}
                 );
+    const triggerEl = document.querySelector('#v-pills-tabContent button[data-bs-target="#nav-home"]')
+    bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+
 
 }
+
+document.querySelector('#deleteUser').addEventListener('submit', submitFormDeleteUser);
+
+function submitFormDeleteUser(event) {
+    event.preventDefault();
+    let formData = new FormData(event.target);
+    let user = {};
+    formData.forEach((value, key) => user[key] = value);
+    let request = new Request("http://localhost:8080/api/users/" + user["id"], {
+        method: 'DELETE',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    fetch(request).then(
+        function (response) {
+            console.log(response);
+            let deleteUser = tableUsers.find(item => item.id === user["id"]);
+            tableUsers = tableUsers.filter(function (user) {
+                return user !== deleteUser;
+            })
+            showUsers(tableUsers);
+        },
+        function (error) {
+            console.error(error);
+        }
+    );
+    console.log('Запрос request отправляется');
+    const triggerEl = document.querySelector('#v-pills-tabContent button[data-bs-target="#nav-home"]')
+    bootstrap.Tab.getInstance(triggerEl).show()
+
+}
+document.getElementById('allUsersBody').addEventListener('DOMContentLoaded',function (){
+    document.getElementById('#deleteButton').addEventListener("click", showDeleteModal)
+});
+
+
+
+function showDeleteModal(id){
+    let request = new Request("http://localhost:8080/api/users/"+ id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    fetch(request).
+    then( res => res.json()).
+    then(deleteUser => {
+        console.log(deleteUser);
+        let form = document.getElementById('deleteUser');
+        let data = new FormData(form);
+        data.set("firstNameDel", "TEST");
+
+        deleteModal.show();
+        }
+    );
+
+
+}
+
+
+

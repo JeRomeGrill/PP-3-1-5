@@ -33,11 +33,20 @@ public class RestUserController {
     public ResponseEntity<List<User>> getAllUsers () {
         return ResponseEntity.ok(userService.listUsers());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getOneUser(@PathVariable("id") Long id){
+        return ResponseEntity.ok(userService.findById(id));
+    }
 
     @PostMapping
     public ResponseEntity<?> createNewUser (@RequestBody User user){
         userService.add(user);
         return ResponseEntity.ok(user);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
+        userService.removeUser(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 

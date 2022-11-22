@@ -82,6 +82,7 @@
                               </tr>
                               </thead>
                               <tbody id="allUsersBody">
+
                               </tbody>
                           </table>
                       </div>
@@ -115,7 +116,7 @@
                                   <div class="row p-3"></div>
                                   <div class="d-grid gap-2 col-5 mx-auto p-1 text-center">
                                       <button type="submit" class="btn btn-success btn-lg"
-                                              id="addNewUser">
+                                              id="addNewUser" data-bs-toggle="tab" data-bs-target="#nav-home" >
                                           Add new user
                                       </button>
                                   </div>
@@ -157,11 +158,64 @@
               <!--                            Окно с ОДНИМ пользователем-->
 
             </div>
+
+
+
         </div>
 
 
     </div>
 </div>
+
+<!-- Modal delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete
+                    user</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="deleteUser">
+                <div class="modal-body col-md text-center">
+                    <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
+                        <br>
+                        <label for="firstNameDel"><b>First name</b></label>
+                        <input class="form-control" id="firstNameDel" name="firstNameDel" disabled/>
+                        <br>
+                        <label for="lastNameDel"><b>Last name</b></label>
+                        <input class="form-control" id="lastNameDel" disabled/>
+                        <br>
+                        <label for="emailDel"><b>Email</b></label>
+                        <input class="form-control" id="emailDel" disabled/>
+                        <br>
+                        <label for="passwordDel"><b>Password</b></label>
+                        <input class="form-control" id="passwordDel" disabled/>
+                        <br>
+                        <label for="roles" class="form-label">Role</label>
+                        <select class="form-select" name="rolesDel"
+                                multiple id="rolesDel" disabled>
+                            <option value="1">USER</option>
+                            <option value="2">ADMIN</option>
+                        </select>
+                        <br><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal delete -->
 
 <!--<script src="https://code.jquery.com/jquery-3.6.1.min.js"-->
 <!--        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>-->
