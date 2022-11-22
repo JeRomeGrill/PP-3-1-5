@@ -2,7 +2,7 @@
 let tableUsers = [];
 let currentUser = "";
 let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-const editModal = document.getElementById('editModal');
+// let editModal = new bootstrap.Modal(document.getElementById('editModal'));
 let request = new Request("http://localhost:8080/api/users", {
     method: 'GET',
     headers: {
@@ -107,14 +107,15 @@ function rolesUser(event) {
     }
     return allRoles;
 }
-document.querySelector('#newUser').addEventListener('submit', submitFormNewUser);
-function submitFormNewUser(e) {
+
+document.getElementById('newUser').addEventListener('submit', addNewUser);
+function addNewUser (e) {
     e.preventDefault();
     let newUserForm = new FormData(e.target);
     let user = {};
     newUserForm.forEach((value, key) => user[key] = value);
     user["roles"] = rolesUser("#roles");
-    let request = new Request(e.target.action, {
+    let request = new Request("http://localhost:8080/api/users", {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -125,14 +126,17 @@ function submitFormNewUser(e) {
     fetch(request).
     then( res => res.json()).
     then(newUser => {
-                    tableUsers.push(newUser);
-                    showUsers(tableUsers);}
-                );
+        tableUsers.push(newUser);
+        showUsers(tableUsers);}
+    );
     const triggerEl = document.querySelector('#v-pills-tabContent button[data-bs-target="#nav-home"]')
     bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
-
-
 }
+
+
+
+
+
 
 
 
