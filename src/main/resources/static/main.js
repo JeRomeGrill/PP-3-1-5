@@ -2,13 +2,14 @@
 let tableUsers = [];
 let currentUser = "";
 let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-// let editModal = new bootstrap.Modal(document.getElementById('editModal'));
+let editModal = new bootstrap.Modal(document.getElementById('editModal'));
 let request = new Request("http://localhost:8080/api/users", {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
     },
 });
+
 fetch(request).then(
     res => {
         res.json().then(
@@ -50,7 +51,7 @@ function showUsers(event) {
         temp += "<td>" + user.email + "</td>"
         temp += "<td>" + user.password + "</td>"
         temp += "<td>" + getRoles(user.roles) + "</td>"
-        temp += "<td>" + `<a href="/api/users/${user.id}" class="btn btn-primary" id="edit">Edit</a>` + "</td>"
+        temp += "<td>" + `<a onclick='showEditModal(${user.id})' class="btn btn-primary" id="edit">Edit</a>` + "</td>"
         temp += "<td>" + `<a onclick='showDeleteModal(${user.id})' class="btn btn-danger" id="deleteButton" >Delete</a>` + "</td>"
         temp += "</tr>"
     })
@@ -74,10 +75,10 @@ function showOneUser(event) {
 function getRoles(list) {
     let userRoles = [];
     for (let role of list) {
-        if (role === 2 || role.id === 2) {
+        if (role == 2 || role.id == 2) {
             userRoles.push("ADMIN");
         }
-        if (role === 1 || role.id === 1) {
+        if (role == 1 || role.id == 1) {
             userRoles.push("USER");
         }
     }
@@ -95,12 +96,12 @@ function rolesUser(event) {
             roles.push(sel.options[i].value);
         }
     }
-    if (roles.includes("ROLE_ADMIN")) {
+    if (roles.includes('2')) {
         rolesAdmin["id"] = 2;
         rolesAdmin["name"] = "ROLE_ADMIN";
         allRoles.push(rolesAdmin);
     }
-    if (roles.includes("ROLE_USER")) {
+    if (roles.includes('1')) {
         rolesUser["id"] = 1;
         rolesUser["name"] = "ROLE_USER";
         allRoles.push(rolesUser);
@@ -192,6 +193,55 @@ function showDeleteModal(id){
         showUsers(tableUsers);
         deleteModal.hide();
     } );
+}
+
+function showEditModal(id){
+    let request = new Request("http://localhost:8080/api/users/"+ id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    fetch(request).
+    then( res => res.json()).
+    then(editUser => {
+            console.log(editUser);
+            document.getElementById('idRed').setAttribute('value',editUser.id);
+            document.getElementById('firstNameRed').setAttribute('value',editUser.firstName);
+            document.getElementById('lastNameRed').setAttribute('value',editUser.lastName);
+            document.getElementById('emailRed').setAttribute('value',editUser.email);
+            document.getElementById('passwordRed').setAttribute('value',editUser.password);
+            if ((editUser.roles.id = 1) && (editUser.roles.id = 2)){
+                document.getElementById('rolesRed1').setAttribute('selected', 'true');
+                document.getElementById('rolesRed2').setAttribute('selected', 'true');
+            }
+            else if ((editUser.roles.id = 1)) {
+                document.getElementById('rolesRed1').setAttribute('selected', 'true');
+            }
+            else if ((editUser.roles.id = 2)){
+                document.getElementById('rolesRed2').setAttribute('selected', 'true');
+            }
+            editModal.show();
+        }
+    );
+
+    document.getElementById('editUser').addEventListener('submit', submitFormEditUser);
+}
+
+function submitFormEditUser(event) {
+    event.preventDefault();
+    let redUserForm = new FormData(event.target);
+    let user = {};
+    redUserForm.forEach((value, key) => user[key] = value);
+    user["roles"] = rolesUser("#rolesRed");
+    let request = new Request('http://localhost:8080/api/users/', {
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    fetch(request);
 }
 
 

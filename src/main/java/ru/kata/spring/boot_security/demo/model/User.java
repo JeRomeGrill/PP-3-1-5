@@ -9,6 +9,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "user")
+//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id", scope = Long.class)
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -164,5 +165,14 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, email, password, passwordConfirm, roles);
+    }
+
+    public void addRole (Role role) {
+        roles.add(role);
+        role.getUsers().add(this);
+    }
+    public void removeRole (Role role) {
+        roles.remove(role);
+        role.getUsers().remove(this);
     }
 }

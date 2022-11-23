@@ -50,5 +50,11 @@ public class RestUserController {
         return ResponseEntity.ok(user);
     }
 
+    @PutMapping
+    public ResponseEntity<?> updateUser (@RequestBody User user){
+        userService.changeUser(user);
+        return ResponseEntity.ok(user);
+    }
+
 
 }
