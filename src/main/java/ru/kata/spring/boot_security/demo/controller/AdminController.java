@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-@RequestMapping("/admin")
 public class AdminController {
 
     private UserService userService;
@@ -25,9 +24,14 @@ public class AdminController {
     }
 
 
-    @GetMapping(value = "/panel")
+    @GetMapping(value = "/admin/panel")
     public String printUsers() {
         return "admin";
+    }
+
+    @GetMapping(value = "/user")
+    public String showUserPage(){
+        return "user";
     }
 
     @GetMapping("/logout")
