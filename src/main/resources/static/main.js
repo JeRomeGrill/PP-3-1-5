@@ -147,15 +147,7 @@ function submitFormDeleteUser(id) {
             'Content-Type': 'application/json',
         },
     });
-    fetch(request).then(
-        response => response.json())
-        .then(deleteUser => {
-            tableUsers = tableUsers.filter(function (user) {
-                return user !== deleteUser;
-            })
-            showUsers(tableUsers);
-            deleteModal.hide();
-        });
+    fetch(request);
 }
 
 
@@ -190,8 +182,15 @@ function showDeleteModal(id){
         }
     );
 
-    document.getElementById('deleteUser').addEventListener('submit', function (){
+    document.getElementById('deleteUser').addEventListener('submit', function (event){
+        event.preventDefault();
         submitFormDeleteUser(id);
+        let deleteUser = tableUsers.find(item => item.id === id);
+        tableUsers = tableUsers.filter(function (user) {
+            return user !== deleteUser;
+        })
+        showUsers(tableUsers);
+        deleteModal.hide();
     } );
 }
 
