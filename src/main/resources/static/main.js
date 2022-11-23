@@ -141,29 +141,22 @@ function addNewUser (e) {
 
 
 function submitFormDeleteUser(id) {
-    let request = new Request("http://localhost:8080/api/users/" + id, {
+    let request = new Request('http://localhost:8080/api/users/' + id, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
     });
     fetch(request).then(
-        function (response) {
-            console.log(response);
-            let deleteUser = tableUsers.find(item => item.id === id);
+        response => response.json())
+        .then(deleteUser => {
             tableUsers = tableUsers.filter(function (user) {
                 return user !== deleteUser;
             })
             showUsers(tableUsers);
-        },
-        function (error) {
-            console.error(error);
-        }
-    );
-    console.log('Запрос request отправляется');
-    deleteModal.hide();
+            deleteModal.hide();
+        });
 }
-
 
 
 
@@ -197,8 +190,8 @@ function showDeleteModal(id){
         }
     );
 
-    document.querySelector('#deleteUser').addEventListener('submit', function (){
-        submitFormDeleteUser(id)
+    document.getElementById('deleteUser').addEventListener('submit', function (){
+        submitFormDeleteUser(id);
     } );
 }
 
