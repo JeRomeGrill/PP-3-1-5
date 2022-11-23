@@ -130,6 +130,7 @@ function addNewUser (e) {
         tableUsers.push(newUser);
         showUsers(tableUsers);}
     );
+    e.target.reset();
     const triggerEl = document.querySelector('#v-pills-tabContent button[data-bs-target="#nav-home"]')
     bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
 }
@@ -241,7 +242,21 @@ function submitFormEditUser(event) {
             'Content-Type': 'application/json',
         },
     });
-    fetch(request);
+    fetch(request).then(
+        function (response) {
+        console.log(response)
+            let indexEditUser = tableUsers.findIndex(item => item.id === user["id"])
+            tableUsers.splice(indexEditUser,1,user)
+            showUsers(tableUsers);
+            editModal.hide();
+    });
+
+    // fetch(request).
+    // then( res => res.json()).
+    // then(newUser => {
+    //     tableUsers.push(newUser);
+    //     showUsers(tableUsers);}
+    // );
 }
 
 
