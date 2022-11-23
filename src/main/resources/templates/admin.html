@@ -43,7 +43,8 @@
         <div class="col-2 text-left" style="background-color: #ffffff">
             <div class="d-flex align-items-start">
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#allUsers"
+                    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#allUsers"
                             type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Admin
                     </button>
                     <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#one-user"
@@ -56,111 +57,113 @@
         <!--Основной контент страницы-->
         <div class="col-10">
             <div class="tab-content" id="v-pills-tabContent">
-              <div class="tab-pane fade show active" id="allUsers" role="tabpanel" aria-labelledby="home-tab">
-                <h1>Admin panel</h1>
-                <nav>
-                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">All users</button>
-                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Add new user</button>
-                  </div>
-                </nav>
+                <div class="tab-pane fade show active" id="allUsers" role="tabpanel" aria-labelledby="home-tab">
+                    <h1>Admin panel</h1>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                                    aria-selected="true">All users
+                            </button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                                    aria-selected="false">Add new user
+                            </button>
+                        </div>
+                    </nav>
 
-                  <div class="tab-content" id="nav-tabContent">
-<!--                      Таблица-->
-                      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                          <table class="table table-striped" id="tableUsers">
-                              <thead>
-                              <tr>
-                                  <th>ID</th>
-                                  <th>First Name</th>
-                                  <th>Last Name</th>
-                                  <th>Email</th>
-                                  <th>Password</th>
-                                  <th>Roles</th>
-                                  <th>Edit</th>
-                                  <th>Delete</th>
-                              </tr>
-                              </thead>
-                              <tbody id="allUsersBody">
+                    <div class="tab-content" id="nav-tabContent">
+                        <!--                      Таблица-->
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                             aria-labelledby="nav-home-tab" tabindex="0">
+                            <table class="table table-striped" id="tableUsers">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>Roles</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody id="allUsersBody">
 
-                              </tbody>
-                          </table>
-                      </div>
-<!--                      Таблица-->
-                      <!--                     Создание нового пользователя-->
-                      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                          <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
-                              <form id="newUser">
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--                      Таблица-->
+                        <!--                     Создание нового пользователя-->
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+                             tabindex="0">
+                            <div class="d-grid gap-2 col-4 mx-auto p-1 text-center">
+                                <form id="newUser">
 
-                                  <label for="firstName" class="form-label">First name</label>
+                                    <label for="firstName" class="form-label">First name</label>
 
-                                  <input type="text" class="form-control"
-                                         id="firstName" name="firstName"
-                                         placeholder="First name">
+                                    <input type="text" class="form-control"
+                                           id="firstName" name="firstName"
+                                           placeholder="First name">
 
-                                  <label for="lastName" class="form-label">Last name</label>
-                                  <input type="text" class="form-control" id="lastName" name="lastName"
-                                         placeholder="Last name">
-                                  <label for="email" class="form-label">Email address</label>
-                                  <input type="text"  class="form-control" id="email" name="email"
-                                         placeholder="name@example.com">
-                                  <label for="password" class="form-label">Password</label>
-                                  <input type="password" class="form-control" name="password"
-                                         id="password"
-                                         placeholder="Password">
+                                    <label for="lastName" class="form-label">Last name</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName"
+                                           placeholder="Last name">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           placeholder="name@example.com">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password"
+                                           id="password"
+                                           placeholder="Password">
 
-                                  <label for="roles" class="form-label">Role</label>
-                                  <select class="form-select" multiple name="roles" id="roles" size="2">
-                                      <option value="1">USER</option>
-                                      <option value="2">ADMIN</option>
-                                  </select>
-                                  <div class="row p-3"></div>
-                                  <div class="d-grid gap-2 col-5 mx-auto p-1 text-center">
-                                      <button type="submit" class="btn btn-success btn-lg"
-                                              id="addNewUser" >
-                                          Add new user
-                                      </button>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
-                      <!--                     Создание нового пользователя-->
-                  </div>
-
-
-
-
+                                    <label for="roles" class="form-label">Role</label>
+                                    <select class="form-select" multiple name="roles" id="roles" size="2">
+                                        <option value="1">USER</option>
+                                        <option value="2">ADMIN</option>
+                                    </select>
+                                    <div class="row p-3"></div>
+                                    <div class="d-grid gap-2 col-5 mx-auto p-1 text-center">
+                                        <button type="submit" class="btn btn-success btn-lg"
+                                                id="addNewUser">
+                                            Add new user
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!--                     Создание нового пользователя-->
+                    </div>
 
 
+                </div>
 
-              </div>
+                <!--                            Окно с ОДНИМ пользователем-->
+                <div class="tab-pane fade" id="one-user" role="tabpanel" aria-labelledby="one-user-tab"
+                     tabindex="0">
+                    <h1>User information-page</h1>
 
-              <!--                            Окно с ОДНИМ пользователем-->
-              <div class="tab-pane fade" id="one-user" role="tabpanel" aria-labelledby="one-user-tab"
-                   tabindex="0">
-                  <h1>User information-page</h1>
+                    <table class="table table-striped">
+                        <thead>
+                        <h4>About user</h4>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Roles</th>
+                        </tr>
+                        </thead>
+                        <tbody id="oneUserBody">
 
-                  <table class="table table-striped">
-                    <thead>
-                    <h4>About user</h4>
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Password</th>
-                      <th scope="col">Roles</th>
-                    </tr>
-                    </thead>
-                    <tbody id="oneUserBody">
-
-                    </tbody>
-                  </table>
-              </div>
-              <!--                            Окно с ОДНИМ пользователем-->
+                        </tbody>
+                    </table>
+                </div>
+                <!--                            Окно с ОДНИМ пользователем-->
 
             </div>
-
 
 
         </div>

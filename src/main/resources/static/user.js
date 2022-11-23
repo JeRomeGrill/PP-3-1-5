@@ -7,13 +7,14 @@ fetch("http://localhost:8080/api/users/current").then(
                 if (data != null) {
                     currentUser = data;
                     console.log(currentUser);
-                    showOneUserPage(currentUser);
+                    showOneUser(currentUser);
                 }
             }
         )
     })
 
-function showOneUserPage(event) {
+function showOneUser(event) {
+
     let temp = "";
     console.log(event);
     temp += "<tr>"

@@ -1,4 +1,3 @@
-
 let tableUsers = [];
 let currentUser = "";
 let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
@@ -57,18 +56,19 @@ function showUsers(event) {
     })
     document.getElementById("allUsersBody").innerHTML = temp;
 }
+
 function showOneUser(event) {
 
     let temp = "";
     console.log(event);
-        temp += "<tr>"
-        temp += "<td>" + event.id + "</td>"
-        temp += "<td>" + event.firstName + "</td>"
-        temp += "<td>" + event.lastName + "</td>"
-        temp += "<td>" + event.email + "</td>"
-        temp += "<td>" + event.password + "</td>"
-        temp += "<td>" + getRoles(event.roles) + "</td>"
-        temp += "</tr>"
+    temp += "<tr>"
+    temp += "<td>" + event.id + "</td>"
+    temp += "<td>" + event.firstName + "</td>"
+    temp += "<td>" + event.lastName + "</td>"
+    temp += "<td>" + event.email + "</td>"
+    temp += "<td>" + event.password + "</td>"
+    temp += "<td>" + getRoles(event.roles) + "</td>"
+    temp += "</tr>"
     document.getElementById("oneUserBody").innerHTML = temp;
 }
 
@@ -110,7 +110,8 @@ function rolesUser(event) {
 }
 
 document.getElementById('newUser').addEventListener('submit', addNewUser);
-function addNewUser (e) {
+
+function addNewUser(e) {
     e.preventDefault();
     let newUserForm = new FormData(e.target);
     let user = {};
@@ -124,22 +125,15 @@ function addNewUser (e) {
         },
     });
 
-    fetch(request).
-    then( res => res.json()).
-    then(newUser => {
-        tableUsers.push(newUser);
-        showUsers(tableUsers);}
+    fetch(request).then(res => res.json()).then(newUser => {
+            tableUsers.push(newUser);
+            showUsers(tableUsers);
+        }
     );
     e.target.reset();
     const triggerEl = document.querySelector('#v-pills-tabContent button[data-bs-target="#nav-home"]')
     bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
 }
-
-
-
-
-
-
 
 
 function submitFormDeleteUser(id) {
@@ -153,38 +147,33 @@ function submitFormDeleteUser(id) {
 }
 
 
-
-function showDeleteModal(id){
-    let request = new Request("http://localhost:8080/api/users/"+ id, {
+function showDeleteModal(id) {
+    let request = new Request("http://localhost:8080/api/users/" + id, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
     });
 
-    fetch(request).
-    then( res => res.json()).
-    then(deleteUser => {
-        console.log(deleteUser);
-        document.getElementById('firstNameDel').setAttribute('value',deleteUser.firstName);
-        document.getElementById('lastNameDel').setAttribute('value',deleteUser.lastName);
-        document.getElementById('emailDel').setAttribute('value',deleteUser.email);
-        document.getElementById('passwordDel').setAttribute('value',deleteUser.password);
-        if (getRoles(deleteUser.roles).includes("USER") && getRoles(deleteUser.roles).includes("ADMIN")){
-            document.getElementById('rolesDel1').setAttribute('selected', 'true');
-            document.getElementById('rolesDel2').setAttribute('selected', 'true');
-        }
-        else if (getRoles(deleteUser.roles).includes("USER")) {
-            document.getElementById('rolesDel1').setAttribute('selected', 'true');
-        }
-        else if (getRoles(deleteUser.roles).includes("ADMIN")){
-            document.getElementById('rolesDel2').setAttribute('selected', 'true');
-        }
-        deleteModal.show();
+    fetch(request).then(res => res.json()).then(deleteUser => {
+            console.log(deleteUser);
+            document.getElementById('firstNameDel').setAttribute('value', deleteUser.firstName);
+            document.getElementById('lastNameDel').setAttribute('value', deleteUser.lastName);
+            document.getElementById('emailDel').setAttribute('value', deleteUser.email);
+            document.getElementById('passwordDel').setAttribute('value', deleteUser.password);
+            if (getRoles(deleteUser.roles).includes("USER") && getRoles(deleteUser.roles).includes("ADMIN")) {
+                document.getElementById('rolesDel1').setAttribute('selected', 'true');
+                document.getElementById('rolesDel2').setAttribute('selected', 'true');
+            } else if (getRoles(deleteUser.roles).includes("USER")) {
+                document.getElementById('rolesDel1').setAttribute('selected', 'true');
+            } else if (getRoles(deleteUser.roles).includes("ADMIN")) {
+                document.getElementById('rolesDel2').setAttribute('selected', 'true');
+            }
+            deleteModal.show();
         }
     );
 
-    document.getElementById('deleteUser').addEventListener('submit', function (event){
+    document.getElementById('deleteUser').addEventListener('submit', function (event) {
         event.preventDefault();
         submitFormDeleteUser(id);
         let deleteUser = tableUsers.find(item => item.id === id);
@@ -193,33 +182,29 @@ function showDeleteModal(id){
         })
         showUsers(tableUsers);
         deleteModal.hide();
-    } );
+    });
 }
 
-function showEditModal(id){
-    let request = new Request("http://localhost:8080/api/users/"+ id, {
+function showEditModal(id) {
+    let request = new Request("http://localhost:8080/api/users/" + id, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
     });
-    fetch(request).
-    then( res => res.json()).
-    then(editUser => {
+    fetch(request).then(res => res.json()).then(editUser => {
             console.log(editUser);
-            document.getElementById('idRed').setAttribute('value',editUser.id);
-            document.getElementById('firstNameRed').setAttribute('value',editUser.firstName);
-            document.getElementById('lastNameRed').setAttribute('value',editUser.lastName);
-            document.getElementById('emailRed').setAttribute('value',editUser.email);
-            document.getElementById('passwordRed').setAttribute('value',editUser.password);
-            if ((editUser.roles.id = 1) && (editUser.roles.id = 2)){
+            document.getElementById('idRed').setAttribute('value', editUser.id);
+            document.getElementById('firstNameRed').setAttribute('value', editUser.firstName);
+            document.getElementById('lastNameRed').setAttribute('value', editUser.lastName);
+            document.getElementById('emailRed').setAttribute('value', editUser.email);
+            document.getElementById('passwordRed').setAttribute('value', editUser.password);
+            if ((editUser.roles.id = 1) && (editUser.roles.id = 2)) {
                 document.getElementById('rolesRed1').setAttribute('selected', 'true');
                 document.getElementById('rolesRed2').setAttribute('selected', 'true');
-            }
-            else if ((editUser.roles.id = 1)) {
+            } else if ((editUser.roles.id = 1)) {
                 document.getElementById('rolesRed1').setAttribute('selected', 'true');
-            }
-            else if ((editUser.roles.id = 2)){
+            } else if ((editUser.roles.id = 2)) {
                 document.getElementById('rolesRed2').setAttribute('selected', 'true');
             }
             editModal.show();
@@ -244,12 +229,12 @@ function submitFormEditUser(event) {
     });
     fetch(request).then(
         function (response) {
-        console.log(response)
+            console.log(response)
             let indexEditUser = tableUsers.findIndex(item => item.id === user["id"])
-            tableUsers.splice(indexEditUser,1,user)
+            tableUsers.splice(indexEditUser, 1, user)
             showUsers(tableUsers);
             editModal.hide();
-    });
+        });
 
     // fetch(request).
     // then( res => res.json()).

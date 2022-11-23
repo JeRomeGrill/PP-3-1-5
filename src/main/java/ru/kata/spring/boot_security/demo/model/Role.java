@@ -2,17 +2,18 @@ package ru.kata.spring.boot_security.demo.model;
 
 import com.fasterxml.jackson.annotation.*;
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "role")
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id", scope = Long.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
     private String name;
-    @ManyToMany (fetch = FetchType.LAZY, mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private Set<User> users;
 
     public Role() {
