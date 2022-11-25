@@ -12,7 +12,9 @@ import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig
+        extends WebSecurityConfigurerAdapter
+{
     private final SuccessUserHandler successUserHandler;
     private final UserServiceImpl userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -28,12 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/api/users/**").and()
-                .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/admin/**", "/api/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.POST, "/api/users/").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
                 .antMatchers("/api/users/current").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .and()
@@ -47,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
         ;
     }
+
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
