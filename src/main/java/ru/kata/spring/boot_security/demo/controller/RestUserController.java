@@ -35,20 +35,20 @@ public class RestUserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createNewUser(@RequestBody User user) {
+    public ResponseEntity<User> createNewUser(@RequestBody User user) {
         userService.add(user);
         return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable("id") Long id) {
         User user = userService.findById(id);
         userService.removeUser(id);
         return ResponseEntity.ok(user);
     }
 
     @PutMapping
-    public ResponseEntity<?> updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.changeUser(user);
         return ResponseEntity.ok(user);
     }
