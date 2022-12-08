@@ -15,8 +15,12 @@ public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-    @Autowired
+
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    public UserDaoImpl(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     public void add(User user) {
