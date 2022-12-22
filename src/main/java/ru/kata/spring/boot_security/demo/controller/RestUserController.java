@@ -21,7 +21,6 @@ import java.util.List;
 public class RestUserController {
     private UserService userService;
 
-    @Autowired
     public RestUserController(UserService userService) {
         this.userService = userService;
     }

@@ -20,7 +20,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDao userDao;
 
-    @Autowired
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDao.findByEmail(email);
     }
 
-    @Transactional
+    @Transactional (readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByEmail(username);

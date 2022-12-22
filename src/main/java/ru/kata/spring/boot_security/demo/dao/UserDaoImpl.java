@@ -17,7 +17,6 @@ public class UserDaoImpl implements UserDao {
     private EntityManager entityManager;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
     public UserDaoImpl(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

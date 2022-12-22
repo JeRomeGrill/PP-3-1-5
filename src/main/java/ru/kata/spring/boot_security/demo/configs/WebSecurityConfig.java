@@ -19,7 +19,6 @@ public class WebSecurityConfig
     private final UserServiceImpl userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.successUserHandler = successUserHandler;
         this.userService = userService;
